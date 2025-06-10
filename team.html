@@ -44,6 +44,12 @@
       width: 100%;
       max-width: 600px;
     }
+
+    #note {
+      color: #666;
+      font-size: 14px;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -53,9 +59,10 @@
     </div>
     <div id="audio-container">
       <audio id="audio" controls>
-        <source id="audioSource" src="" type="audio/wav" />
+        <source id="audioSource" src="" type="audio/mpeg" />
         브라우저가 오디오 태그를 지원하지 않습니다.
       </audio>
+      <div id="note">iPhone에서는 자동 재생이 제한됩니다. 버튼을 눌러 주세요.</div>
     </div>
   </div>
 
@@ -66,16 +73,16 @@
     if (!team) {
       alert("team 파라미터가 없습니다. 예: team.html?team=ATMOS");
     } else {
-      // 이미지 로딩
+      // 이미지
       const poster = document.getElementById("poster");
       poster.src = `assets/posters/${team}.jpg`;
       poster.alt = `${team} 포스터`;
 
-      // 오디오 로딩
+      // 오디오
       const audio = document.getElementById("audio");
       const audioSource = document.getElementById("audioSource");
-      audioSource.src = `assets/audio/${team}.mp3`; // 필요 시 .mp3 로 바꾸기
-      audio.load(); // iOS에서 오디오 로드 강제
+      audioSource.src = `assets/audio/${team}.mp3`;
+      audio.load(); // 반드시 필요: Safari가 source 변경 인식하게 함
     }
   </script>
 </body>
