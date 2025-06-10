@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>작품 안내</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: sans-serif;
+      height: 100%;
+      overflow: hidden;
+    }
+    #container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #poster-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #poster {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    #audio-container {
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    audio {
+      width: 100%;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="poster-container">
+      <img id="poster" />
+    </div>
+    <div id="audio-container">
+      <audio id="audio" controls autoplay>
+        브라우저가 오디오 태그를 지원하지 않습니다.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const team = params.get("team") || "ATMOS"; // 기본값: ATMOS
+    const img = document.getElementById("poster");
+    const audio = document.getElementById("audio");
+
+    img.src = `assets/posters/${team}.jpg`;
+    img.alt = `팀 ${team} 포스터`;
+    audio.innerHTML = `<source src="assets/audio/${team}.wav" type="audio/wav" />`;
+  </script>
+</body>
+</html>
