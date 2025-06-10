@@ -23,6 +23,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background: black;
     }
     #poster {
       width: 100%;
@@ -43,10 +44,11 @@
 <body>
   <div id="container">
     <div id="poster-container">
-      <img id="poster" />
+      <img id="poster" alt="포스터 이미지 로딩 중..." />
     </div>
     <div id="audio-container">
-      <audio id="audio" controls autoplay>
+      <audio id="audio" controls>
+        <source id="audioSource" src="" type="audio/wav" />
         브라우저가 오디오 태그를 지원하지 않습니다.
       </audio>
     </div>
@@ -54,13 +56,23 @@
 
   <script>
     const params = new URLSearchParams(location.search);
-    const team = params.get("team") || "ATMOS"; // 기본값: ATMOS
-    const img = document.getElementById("poster");
-    const audio = document.getElementById("audio");
+    const team = params.get("team");
 
-    img.src = `assets/posters/${team}.jpg`;
-    img.alt = `팀 ${team} 포스터`;
-    audio.innerHTML = `<source src="assets/audio/${team}.wav" type="audio/wav" />`;
+    if (!team) {
+      alert("team 파라미터가 없습니다. 예: team.html?team=ATMOS");
+    } else {
+      const poster = document.getElementById("poster");
+      const audio = document.getElementById("audio");
+      const audioSource = document.getElementById("audioSource");
+
+      // 이미지
+      poster.src = `assets/posters/${team}.jpg`;
+      poster.alt = `${team} 포스터`;
+
+      // 오디오
+      audioSource.src = `assets/audio/${team}.wav`;
+      audio.load(); // iOS Safari를 위한 필수 처리
+    }
   </script>
 </body>
 </html>
